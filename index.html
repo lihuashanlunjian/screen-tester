@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Tester Online & Dead Pixel Check | LCD Monitor Test Tool</title>
+    <meta name="description" content="Free online screen tester for dead pixels, LCD test, monitor calibration, and bleeding test. Simple, no installation required. Download Chrome extension for quick access.">
+    <meta name="keywords" content="screen tester, dead pixel check, LCD test, monitor calibration, bleeding test, online screen test, pixel test, display test">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Screen Tester Online & Dead Pixel Check">
+    <meta property="og:description" content="Free online screen tester for dead pixels and display issues">
+    <meta property="og:type" content="website">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #2a2a2a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #000;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.4);
+        }
+
+        .cta-icon {
+            font-size: 24px;
+        }
+
+        main {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .test-section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .test-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .test-button {
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .test-button:hover {
+            background-color: var(--border);
+            border-color: var(--accent);
+        }
+
+        .test-button.primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            border: none;
+            font-size: 18px;
+            padding: 16px 48px;
+        }
+
+        .test-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .seo-section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 40px;
+        }
+
+        .seo-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .seo-tag {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .test-section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="hero-title">Screen Tester Online & Dead Pixel Check</h1>
+            <p class="hero-subtitle">简单、免费、无需安装的在线屏幕测试工具 - 检测坏点、色彩表现和显示质量</p>
+            <a href="#" class="cta-button">
+                <span class="cta-icon">⬇️</span>
+                <span>Download Chrome Extension (Free)</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="test-section">
+                <h2 class="section-title">Online Screen Test</h2>
+                <p class="section-subtitle">点击开始测试您的显示器 - 检测坏点、色彩均匀度和显示问题</p>
+                <div class="test-buttons">
+                    <button class="test-button primary" onclick="window.location.href='tester.html'">
+                        🚀 Start Online Test
+                    </button>
+                </div>
+            </section>
+
+            <h2 class="section-title">Why Use Our Screen Tester?</h2>
+            <p class="section-subtitle">Professional tools for every display</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">Color Accuracy</h3>
+                    <p class="feature-desc">Test red, green, blue, black, and white colors to verify display performance</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">Dead Pixel Detection</h3>
+                    <p class="feature-desc">Identify stuck or dead pixels with solid color screens</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">No Installation</h3>
+                    <p class="feature-desc">Use directly in your browser - no downloads required</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Auto Play Mode</h3>
+                    <p class="feature-desc">Automated testing sequence with 3-second intervals</p>
+                </div>
+            </div>
+
+            <section class="seo-section">
+                <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Display Testing Features</h3>
+                <p style="color: var(--text-secondary); font-size: 14px;">Comprehensive tools for monitor testing and calibration</p>
+                <div class="seo-keywords">
+                    <span class="seo-tag">LCD test</span>
+                    <span class="seo-tag">monitor calibration</span>
+                    <span class="seo-tag">bleeding test</span>
+                    <span class="seo-tag">dead pixel check</span>
+                    <span class="seo-tag">screen test</span>
+                    <span class="seo-tag">display test</span>
+                    <span class="seo-tag">pixel test</span>
+                    <span class="seo-tag">color test</span>
+                    <span class="seo-tag">LED test</span>
+                    <span class="seo-tag">OLED test</span>
+                    <span class="seo-tag">screen calibration</span>
+                    <span class="seo-tag">backlight test</span>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#" class="footer-link">LCD Test</a>
+                    <a href="#" class="footer-link">Monitor Calibration</a>
+                    <a href="#" class="footer-link">Bleeding Test</a>
+                    <a href="#" class="footer-link">Dead Pixel Check</a>
+                    <a href="tester.html" class="footer-link">Online Test</a>
+                </div>
+                <p class="copyright">© 2025 Screen Tester. All rights reserved. | Free screen testing tool for everyone.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function openTestPage(auto) {
-        const url = auto ? 'tester.html?mode=auto' : 'tester.html';
+        const url = auto ? '../tester.html?mode=auto' : '../tester.html';
         chrome.tabs.create({
             url: chrome.runtime.getURL(url)
         });
