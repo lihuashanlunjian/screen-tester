@@ -125,3 +125,11 @@ button {
     text-align: center;
     letter-spacing: 8px;
 }
+
+.modal-hidden {
+    display: none !important;
+}
+
+.modal-visible {
+    display: flex !important;
+}

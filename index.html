@@ -303,6 +303,47 @@
             font-size: 18px;
         }
 
+        .guides-section {
+            padding: 40px 0;
+        }
+
+        .guides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .guide-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .guide-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .guide-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .guide-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .guide-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 32px;
@@ -396,6 +437,24 @@
                     <span class="seo-tag">backlight test</span>
                 </div>
             </section>
+
+            <!-- Guides Section -->
+            <section class="guides-section">
+                <h2 class="section-title">Useful Guides</h2>
+                <p class="section-subtitle">Everything you need to know about screen care and buying</p>
+                <div class="guides-grid">
+                    <a href="clean-guide.html" class="guide-card">
+                        <div class="guide-icon">🧼</div>
+                        <h3 class="guide-title">How to Clean Your Screen</h3>
+                        <p class="guide-desc">Professional guide to safely clean LCD, OLED, and MacBook screens without damaging coatings.</p>
+                    </a>
+                    <a href="buying-guide.html" class="guide-card">
+                        <div class="guide-icon">🖥️</div>
+                        <h3 class="guide-title">Annual Monitor Buying Guide</h3>
+                        <p class="guide-desc">How to choose the perfect monitor, IPS vs VA vs OLED, resolution and refresh rate tips.</p>
+                    </a>
+                </div>
+            </section>
         </div>
     </main>
 
@@ -418,8 +477,10 @@
                     <a href="#" class="footer-link">Bleeding Test</a>
                     <a href="#" class="footer-link">Dead Pixel Check</a>
                     <a href="tester.html" class="footer-link">Online Test</a>
+                    <a href="clean-guide.html" class="footer-link">Screen Cleaning Guide</a>
+                    <a href="buying-guide.html" class="footer-link">Buying Guide </a>
                 </div>
-                <p class="copyright">© 2025 Screen Tester. All rights reserved. | Free screen testing tool for everyone.</p>
+                <p class="copyright">©  Screen Tester. All rights reserved. | Free screen testing tool for everyone.</p>
             </div>
         </div>
     </footer>

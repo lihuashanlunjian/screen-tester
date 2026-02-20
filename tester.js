@@ -43,16 +43,18 @@ function startTesting(auto = false) {
     testPage.classList.remove('hidden');
     
     if (auto) {
-        const result = enterFullscreen();
-        if (!result) {
-            showAutoPrompt();
-        } else {
+        enterFullscreen().then(() => {
             renderTest();
             startAutoPlay();
-        }
+        }).catch(() => {
+            showAutoPrompt();
+        });
     } else {
-        enterFullscreen();
-        renderTest();
+        enterFullscreen().then(() => {
+            renderTest();
+        }).catch(() => {
+            renderTest();
+        });
     }
 }
 
@@ -109,16 +111,22 @@ function stopTesting() {
 
 function onTestFinished() {
     if (document.exitFullscreen) document.exitFullscreen();
-    document.getElementById('surveyModal').style.display = 'flex';
+    const surveyModal = document.getElementById('surveyModal');
+    surveyModal.classList.remove('modal-hidden');
+    surveyModal.classList.add('modal-visible');
 }
 
 function startGeneratingReport() {
     const hasDeadPixel = document.getElementById('chk-deadpixel').checked;
     const bleedingSeverity = document.getElementById('sel-bleeding').value;
 
-    document.getElementById('surveyModal').style.display = 'none';
+    const surveyModal = document.getElementById('surveyModal');
+    surveyModal.classList.remove('modal-visible');
+    surveyModal.classList.add('modal-hidden');
+
     const reportModal = document.getElementById('reportModal');
-    reportModal.style.display = 'block';
+    reportModal.classList.remove('modal-hidden');
+    reportModal.classList.add('modal-visible');
     
     const contentDiv = document.getElementById('reportContent');
     const scoreDiv = document.getElementById('reportScore');
@@ -149,9 +157,9 @@ function startGeneratingReport() {
         contentDiv.innerHTML = htmlContent;
 
         contentDiv.innerHTML += `
-            <div style="margin-top:30px; padding:15px; background:#f9f9f9; border-left:4px solid #FFDD00; font-size:14px;">
-                <b>💡 专家提示：</b>
-                ${result.score < 80 ? '这块屏幕的素质一般，如果您考虑退货，可以看看 <a href=\"#\" target=\"_blank\">2024年高分显示器推荐榜</a>。' : '想要保持屏幕清洁？推荐使用 <a href=\"#\" target=\"_blank\">专业纳米屏幕擦拭布</a>。'}
+            <div style="margin-top:30px; padding:15px; background:#f9f9f9; border-left:4px solid #FFDD00; font-size:14px; text-align:center;">
+                <b>💡 专家提示：</b><br>
+                ${result.score < 80 ? '这块屏幕的素质一般，如果您考虑退货，可以看看 <a href="buying-guide.html" target="_blank">显示器选购指南</a>。' : '想要保持屏幕清洁？推荐阅读 <a href="clean-guide.html" target="_blank">屏幕清洁终极指南</a>。'}
             </div>
         `;
 
@@ -164,22 +172,24 @@ function nextTest() {
 }
 
 function enterFullscreen() {
-    const elem = document.documentElement;
-    try {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-            return true;
-        } else if (elem.webkitRequestFullscreen) {
-            elem.webkitRequestFullscreen();
-            return true;
-        } else if (elem.msRequestFullscreen) {
-            elem.msRequestFullscreen();
-            return true;
+    return new Promise((resolve, reject) => {
+        const elem = document.documentElement;
+        try {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().then(resolve).catch(reject);
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+                resolve();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+                resolve();
+            } else {
+                resolve();
+            }
+        } catch (e) {
+            reject(e);
         }
-    } catch (e) {
-        return false;
-    }
-    return false;
+    });
 }
 
 function exitFullscreen() {
@@ -229,4 +239,16 @@ function checkUrlParams() {
 
 document.addEventListener('DOMContentLoaded', () => {
     checkUrlParams();
+
+    const generateReportBtn = document.getElementById('generateReportBtn');
+    if (generateReportBtn) {
+        generateReportBtn.addEventListener('click', startGeneratingReport);
+    }
+
+    const reloadBtn = document.getElementById('reloadBtn');
+    if (reloadBtn) {
+        reloadBtn.addEventListener('click', () => {
+            location.reload();
+        });
+    }
 });
