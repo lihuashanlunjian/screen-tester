@@ -42,41 +42,41 @@ function startTesting(auto = false) {
     guidePage.classList.add('hidden');
     testPage.classList.remove('hidden');
     
-    if (auto) {
-        enterFullscreen().then(() => {
-            renderTest();
+    enterFullscreen().then(() => {
+        renderTest();
+        if (auto) {
             startAutoPlay();
-        }).catch(() => {
-            showAutoPrompt();
-        });
-    } else {
-        enterFullscreen().then(() => {
-            renderTest();
-        }).catch(() => {
-            renderTest();
-        });
-    }
+        }
+    }).catch(() => {
+        showFullscreenPrompt(auto);
+    });
 }
 
-function showAutoPrompt() {
+function showFullscreenPrompt(isAuto) {
     if (autoPrompt) {
         autoPrompt.remove();
     }
     autoPrompt = document.createElement('div');
     autoPrompt.style.position = 'fixed';
-    autoPrompt.style.top = '50%';
-    autoPrompt.style.left = '50%';
-    autoPrompt.style.transform = 'translate(-50%, -50%)';
-    autoPrompt.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-    autoPrompt.style.color = '#fff';
-    autoPrompt.style.padding = '40px 60px';
-    autoPrompt.style.borderRadius = '12px';
-    autoPrompt.style.textAlign = 'center';
+    autoPrompt.style.top = '0';
+    autoPrompt.style.left = '0';
+    autoPrompt.style.width = '100%';
+    autoPrompt.style.height = '100%';
+    autoPrompt.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
     autoPrompt.style.zIndex = '1000';
     autoPrompt.style.cursor = 'pointer';
+    autoPrompt.style.display = 'flex';
+    autoPrompt.style.justifyContent = 'center';
+    autoPrompt.style.alignItems = 'center';
+    
+    const titleText = isAuto ? '点击屏幕开始自动播放' : '点击屏幕开始测试';
+    const hintText = '点击任意位置进入全屏并开始自动测试';
+    
     autoPrompt.innerHTML = `
-        <h2 style="font-size: 24px; margin-bottom: 16px; font-weight: 500;">点击屏幕开始自动播放</h2>
-        <p style="font-size: 14px; color: #888;">点击任意位置进入全屏并开始自动测试</p>
+        <div style="background: rgba(0, 0, 0, 0.9); padding: 40px 60px; border-radius: 12px; text-align: center; pointer-events: none;">
+            <h2 style="font-size: 24px; margin-bottom: 16px; font-weight: 500;">${titleText}</h2>
+            <p style="font-size: 14px; color: #aaa;">${hintText}</p>
+        </div>
     `;
     testPage.appendChild(autoPrompt);
     
@@ -85,7 +85,9 @@ function showAutoPrompt() {
         autoPrompt = null;
         enterFullscreen();
         renderTest();
-        startAutoPlay();
+        if (isAuto) {
+            startAutoPlay();
+        }
     });
 }
 
@@ -156,12 +158,7 @@ function startGeneratingReport() {
             
         contentDiv.innerHTML = htmlContent;
 
-        contentDiv.innerHTML += `
-            <div style="margin-top:30px; padding:15px; background:#f9f9f9; border-left:4px solid #FFDD00; font-size:14px; text-align:center;">
-                <b>💡 专家提示：</b><br>
-                ${result.score < 80 ? '这块屏幕的素质一般，如果您考虑退货，可以看看 <a href="buying-guide.html" target="_blank">显示器选购指南</a>。' : '想要保持屏幕清洁？推荐阅读 <a href="clean-guide.html" target="_blank">屏幕清洁终极指南</a>。'}
-            </div>
-        `;
+        contentDiv.innerHTML += `<div style="margin-top:30px; padding:15px; background:#f9f9f9; border-left:4px solid #FFDD00; font-size:14px; text-align:left;"><b>💡 专家提示：</b>${result.score < 80 ? '这块屏幕的素质一般，如果您考虑退货，可以看看 <a href="buying-guide.html" target="_blank">显示器选购指南</a>。' : '想要保持屏幕清洁？推荐阅读 <a href="clean-guide.html" target="_blank">屏幕清洁终极指南</a>。'}</div>`;
 
     }, 2500);
 }
@@ -179,10 +176,13 @@ function enterFullscreen() {
                 elem.requestFullscreen().then(resolve).catch(reject);
             } else if (elem.webkitRequestFullscreen) {
                 elem.webkitRequestFullscreen();
-                resolve();
+                setTimeout(resolve, 100);
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+                setTimeout(resolve, 100);
             } else if (elem.msRequestFullscreen) {
                 elem.msRequestFullscreen();
-                resolve();
+                setTimeout(resolve, 100);
             } else {
                 resolve();
             }
@@ -197,17 +197,27 @@ function exitFullscreen() {
         document.exitFullscreen();
     } else if (document.webkitExitFullscreen) {
         document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
     } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
     }
 }
 
-startBtn.addEventListener('click', () => startTesting(false));
-autoBtn.addEventListener('click', () => startTesting(true));
+startBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    startTesting(false);
+});
+autoBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    startTesting(true);
+});
 
 document.addEventListener('click', (e) => {
-    if (isTesting && e.target === testContainer) {
+    if (isTesting) {
         nextTest();
+    } else if (e.target !== startBtn && e.target !== autoBtn && !startBtn.contains(e.target) && !autoBtn.contains(e.target)) {
+        startTesting(false);
     }
 });
 
@@ -225,6 +235,18 @@ document.addEventListener('fullscreenchange', () => {
 
 document.addEventListener('webkitfullscreenchange', () => {
     if (!document.webkitFullscreenElement && isTesting) {
+        stopTesting();
+    }
+});
+
+document.addEventListener('mozfullscreenchange', () => {
+    if (!document.mozFullScreenElement && isTesting) {
+        stopTesting();
+    }
+});
+
+document.addEventListener('MSFullscreenChange', () => {
+    if (!document.msFullscreenElement && isTesting) {
         stopTesting();
     }
 });
