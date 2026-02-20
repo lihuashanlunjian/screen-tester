@@ -78,6 +78,51 @@
             font-size: 11px;
             color: #666;
         }
+
+        /* 容器：确保位于底部并居中 */
+        .footer-container {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 按钮本体：极简风格 */
+        .bmc-button {
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            
+            /* 颜色与边框 - 默认状态 */
+            background-color: transparent;
+            border: 1px solid #444;
+            color: #888;
+            
+            /* 尺寸与圆角 */
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            
+            /* 动画过渡 */
+            transition: all 0.3s ease;
+        }
+
+        /* 鼠标悬停状态 (Hover) */
+        .bmc-button:hover {
+            background-color: #FFDD00;
+            border-color: #FFDD00;
+            color: #000000;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* 图标微调 */
+        .emoji {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -89,6 +134,15 @@
         <button id="manual-test" class="manual-btn">手动测试 (Manual Test)</button>
         <button id="auto-test" class="auto-btn">自动测试 (Auto Play)</button>
     </div>
+    
+    <!-- 底部赞赏区域 -->
+    <div class="footer-container">
+        <a href="https://buymeacoffee.com/screencheck" target="_blank" class="bmc-button">
+            <span class="emoji">☕</span>
+            <span class="text">Buy me a coffee</span>
+        </a>
+    </div>
+    
     <div class="footer">
         v1.0.0
     </div>
