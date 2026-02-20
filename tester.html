@@ -1,83 +1,83 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>屏幕测试工具</title>
+    <title>Screen Tester</title>
     <link rel="stylesheet" href="tester.css">
 </head>
 <body>
     <div id="guide-page" class="page">
         <div class="guide-content">
-            <h1>屏幕测试工具</h1>
-            <p class="subtitle">检测屏幕的色彩、清晰度和显示质量</p>
+            <h1>Screen Tester</h1>
+            <p class="subtitle">Test your screen for color accuracy, clarity, and display quality</p>
             <div class="button-group">
-                <button id="start-btn" class="primary-btn">手动测试</button>
-                <button id="auto-btn" class="secondary-btn">自动测试</button>
+                <button id="start-btn" class="primary-btn">Manual Test</button>
+                <button id="auto-btn" class="secondary-btn">Auto Test</button>
             </div>
             <div class="instructions">
-                <h2>操作说明</h2>
+                <h2>How to Use</h2>
                 <ul>
-                    <li><strong>点击页面任意位置</strong>：开始测试或切换画面</li>
-                    <li>Esc 键：退出测试</li>
+                    <li><strong>Click anywhere on the page</strong>: Start test or switch screens</li>
+                    <li>Esc key: Exit test</li>
                 </ul>
             </div>
         </div>
     </div>
     <div id="test-page" class="page hidden">
         <div id="test-container" class="test-container"></div>
-        <div class="fullscreen-hint">点击屏幕切换下一张 | ESC 退出</div>
-        <div class="fullscreen-indicator">全屏模式</div>
+        <div class="fullscreen-hint">Click to switch to next | ESC to exit</div>
+        <div class="fullscreen-indicator">Fullscreen Mode</div>
     </div>
 
-    <!-- 这是一个简单的调查问卷弹窗 -->
+    <!-- Simple survey modal -->
     <div id="surveyModal" class="modal-hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); color:white; z-index:9999; justify-content:center; align-items:center;">
         <div style="background:#222; padding:30px; border-radius:10px; max-width:500px; border:1px solid #444;">
-            <h2 style="margin-top:0;">📋 屏幕检测反馈</h2>
-            <p style="color:#aaa; font-size:14px;">请诚实勾选您刚才观察到的情况，AI 将为您生成质检报告。</p>
+            <h2 style="margin-top:0;">📋 Screen Quality Feedback</h2>
+            <p style="color:#aaa; font-size:14px;">Please honestly select what you observed. AI will generate a quality report for you.</p>
             
             <div style="margin:20px 0;">
                 <label style="display:block; margin-bottom:10px;">
-                    <input type="checkbox" id="chk-deadpixel"> 发现坏点/亮点 (Dead/Stuck Pixels)
+                    <input type="checkbox" id="chk-deadpixel"> Found dead/stuck pixels
                 </label>
                 
-                <p style="margin-bottom:5px;">漏光情况 (Backlight Bleeding):</p>
+                <p style="margin-bottom:5px;">Backlight Bleeding:</p>
                 <select id="sel-bleeding" style="width:100%; padding:8px; background:#333; color:white; border:1px solid #555;">
-                    <option value="none">完美，无漏光</option>
-                    <option value="low">轻微漏光 (仅边角可见)</option>
-                    <option value="high">严重漏光 (大面积发白)</option>
+                    <option value="none">Perfect, no bleeding</option>
+                    <option value="low">Slight bleeding (only visible in corners)</option>
+                    <option value="high">Severe bleeding (large bright areas)</option>
                 </select>
             </div>
 
             <button id="generateReportBtn" style="width:100%; padding:10px; background:#4CAF50; color:white; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">
-                生成 AI 验机报告 🤖
+                Generate AI Quality Report 🤖
             </button>
         </div>
     </div>
 
-    <!-- 报告展示弹窗 -->
+    <!-- Report display modal -->
     <div id="reportModal" class="modal-hidden" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#111; color:white; z-index:10000; overflow-y:auto; padding:20px;">
         <div style="max-width:600px; margin:0 auto; background:white; color:#333; padding:40px; border-radius:5px; box-shadow: 0 0 50px rgba(255,255,255,0.1);">
-            <!-- 报告头部 -->
+            <!-- Report header -->
             <div style="text-align:center; border-bottom:2px solid #000; padding-bottom:20px; margin-bottom:20px;">
-                <h1 style="margin:0;">屏幕质量检测报告</h1>
+                <h1 style="margin:0;">Screen Quality Assessment Report</h1>
                 <p style="color:#666; margin:5px 0;">SCREEN QUALITY ASSESSMENT REPORT</p>
             </div>
 
-            <!-- 评分大圆圈 -->
+            <!-- Score circle -->
             <div id="reportScore" style="text-align:center; font-size:60px; font-weight:bold; color:#222; margin:20px 0;">
                 --
             </div>
 
-            <!-- 报告正文 -->
+            <!-- Report content -->
             <div id="reportContent" style="font-family:'Courier New', monospace; line-height:1.6; white-space: pre-wrap;">
-                正在分析数据...
+                Analyzing data...
             </div>
 
-            <!-- 底部 -->
+            <!-- Footer -->
             <div style="margin-top:40px; text-align:center; font-size:12px; color:#888; border-top:1px solid #eee; padding-top:20px;">
                 Generated by Pseudo-AI Engine | Screen Tester Pro<br>
-                <button id="reloadBtn" style="margin-top:20px; padding:8px 20px;">关闭并重新测试</button>
+                <button id="reloadBtn" style="margin-top:20px; padding:8px 20px;">Close and Test Again</button>
             </div>
         </div>
     </div>

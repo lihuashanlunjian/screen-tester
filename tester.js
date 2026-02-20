@@ -1,13 +1,13 @@
 const testModes = [
-    { type: 'solid', color: '#000000', name: '黑色' },
-    { type: 'solid', color: '#FFFFFF', name: '白色' },
-    { type: 'solid', color: '#FF0000', name: '红色' },
-    { type: 'solid', color: '#00FF00', name: '绿色' },
-    { type: 'solid', color: '#0000FF', name: '蓝色' },
-    { type: 'gradient', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', name: '渐变紫' },
-    { type: 'gradient', color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', name: '渐变粉' },
-    { type: 'gradient', color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', name: '渐变蓝' },
-    { type: 'text', color: '#000000', text: 'A', name: '清晰度测试' }
+    { type: 'solid', color: '#000000', name: 'Black' },
+    { type: 'solid', color: '#FFFFFF', name: 'White' },
+    { type: 'solid', color: '#FF0000', name: 'Red' },
+    { type: 'solid', color: '#00FF00', name: 'Green' },
+    { type: 'solid', color: '#0000FF', name: 'Blue' },
+    { type: 'gradient', color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', name: 'Gradient Purple' },
+    { type: 'gradient', color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', name: 'Gradient Pink' },
+    { type: 'gradient', color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', name: 'Gradient Blue' },
+    { type: 'text', color: '#000000', text: 'A', name: 'Clarity Test' }
 ];
 
 let currentIndex = 0;
@@ -69,8 +69,8 @@ function showFullscreenPrompt(isAuto) {
     autoPrompt.style.justifyContent = 'center';
     autoPrompt.style.alignItems = 'center';
     
-    const titleText = isAuto ? '点击屏幕开始自动播放' : '点击屏幕开始测试';
-    const hintText = '点击任意位置进入全屏并开始自动测试';
+    const titleText = isAuto ? 'Click to start auto play' : 'Click to start test';
+    const hintText = 'Click anywhere to enter fullscreen and start auto test';
     
     autoPrompt.innerHTML = `
         <div style="background: rgba(0, 0, 0, 0.9); padding: 40px 60px; border-radius: 12px; text-align: center; pointer-events: none;">
@@ -133,14 +133,14 @@ function startGeneratingReport() {
     const contentDiv = document.getElementById('reportContent');
     const scoreDiv = document.getElementById('reportScore');
     
-    contentDiv.innerHTML = "📡 连接至云端分析引擎...<br>";
+    contentDiv.innerHTML = "📡 Connect to cloud analytics engine...<br>";
     
     setTimeout(() => {
-        contentDiv.innerHTML += "📊 正在对比 ISO-13406-2 标准数据库...<br>";
+        contentDiv.innerHTML += "📊 Comparing with the ISO-13406-2 standard database...<br>";
     }, 800);
 
     setTimeout(() => {
-        contentDiv.innerHTML += "🧮 计算面板均匀性得分...<br>";
+        contentDiv.innerHTML += "🧮 Calculate panel uniformity score...<br>";
     }, 1600);
 
     setTimeout(() => {
@@ -158,7 +158,7 @@ function startGeneratingReport() {
             
         contentDiv.innerHTML = htmlContent;
 
-        contentDiv.innerHTML += `<div style="margin-top:30px; padding:15px; background:#f9f9f9; border-left:4px solid #FFDD00; font-size:14px; text-align:left;"><b>💡 专家提示：</b>${result.score < 80 ? '这块屏幕的素质一般，如果您考虑退货，可以看看 <a href="buying-guide.html" target="_blank">显示器选购指南</a>。' : '想要保持屏幕清洁？推荐阅读 <a href="clean-guide.html" target="_blank">屏幕清洁终极指南</a>。'}</div>`;
+        contentDiv.innerHTML += `<div style="margin-top:30px; padding:15px; background:#f9f9f9; border-left:4px solid #FFDD00; font-size:14px; text-align:left;"><b>💡 Expert Tip:</b>${result.score < 80 ? 'This screen quality is average. If you are considering a return, check out our <a href="buying-guide.html" target="_blank">monitor buying guide</a>.' : 'Want to keep your screen clean? Check out our <a href="clean-guide.html" target="_blank">ultimate screen cleaning guide</a>.'}</div>`;
 
     }, 2500);
 }

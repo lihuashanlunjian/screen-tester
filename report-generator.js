@@ -1,94 +1,94 @@
 /**
- * 伪 AI 报告生成器
- * @param {Object} inputData - 用户的测试结果
- * 结构示例: { hasDeadPixel: boolean, bleedingSeverity: 'none'|'low'|'high', screenType: 'LCD' }
+ * Pseudo AI Report Generator
+ * @param {Object} inputData - User's test results
+ * Structure example: { hasDeadPixel: boolean, bleedingSeverity: 'none'|'low'|'high', screenType: 'LCD' }
  */
 function generatePseudoAIReport(inputData) {
-    // 1. 语料库：专业术语池 (随机抽取)
+    // 1. Corpus: Professional terminology pool (random selection)
     const corpus = {
-        // 开场白
+        // Opening
         intro: [
-            "基于当前显示终端的物理特性分析，结合 ISO-13406-2 像素缺陷标准，生成以下检测报告。",
-            "系统已完成针对面板的色彩均匀性、像素响应及漏光情况的综合扫描，分析结果如下。",
-            "AI 视觉引擎已对您的屏幕测试数据进行处理，以下是基于硬件表现的专业评估。"
+            "Based on physical property analysis of the current display terminal and ISO-13406-2 pixel defect standards, the following inspection report is generated.",
+            "The system has completed comprehensive scanning of panel color uniformity, pixel response, and backlight bleeding. Analysis results are as follows.",
+            "AI vision engine has processed your screen test data. Below is a professional assessment based on hardware performance."
         ],
-        // 坏点分析 (如果有坏点)
+        // Dead pixel analysis (if dead pixels)
         deadPixelBad: [
-            "检测到面板存在活跃矩阵异常（Active Matrix Anomaly）。这通常表现为子像素晶体管失效（Stuck/Dead Pixel）。",
-            "发现可见的像素缺陷点。根据行业标准，这是由于 TFT 制造工艺中的微尘或激光切割误差导致的。",
-            "屏幕存在非发光性或常亮性像素点，建议在高亮和纯黑背景下进行二次确认。"
+            "Active Matrix Anomaly detected on the panel. This typically manifests as sub-pixel transistor failure (Stuck/Dead Pixel).",
+            "Visible pixel defects found. According to industry standards, this is caused by dust or laser cutting errors during TFT manufacturing.",
+            "The screen has non-luminous or permanently lit pixels. It is recommended to double-check on bright and pure black backgrounds."
         ],
-        // 坏点分析 (如果没坏点)
+        // Dead pixel analysis (if no dead pixels)
         deadPixelGood: [
-            "在 RGB 全色域扫描中，未发现任何坏点或亮点。像素阵列完整性极高。",
-            "像素点测试通过。该面板的晶体管良率表现优秀，符合 A+ 级面板标准。",
-            "全屏纯色测试下像素响应正常，无肉眼可见的坏点（Dead Pixels）或亮点（Hot Pixels）。"
+            "No dead or stuck pixels found during RGB full gamut scanning. Pixel array integrity is extremely high.",
+            "Pixel test passed. This panel's transistor yield performance is excellent, meeting A+ grade panel standards.",
+            "Pixel response is normal in full-screen solid color tests, with no visible dead pixels or hot pixels."
         ],
-        // 漏光分析 (轻微)
+        // Bleeding analysis (slight)
         bleedingLow: [
-            "边缘存在轻微的光线溢出，这通常被判定为 IPS 辉光（IPS Glow），属于液晶分子排列的物理特性，而非质量缺陷。",
-            "黑色背景下可见轻微不均匀，但这在侧入式背光（Edge-lit）显示器中属于常见现象，不影响日常亮光环境使用。",
-            "检测到微弱的背光不均匀，但在 Delta E 色彩准确度允许的公差范围内。"
+            "Slight light leakage at the edges. This is usually determined as IPS Glow, a physical property of liquid crystal molecule alignment, not a quality defect.",
+            "Slight unevenness visible on black background. This is a common phenomenon in edge-lit monitors and does not affect daily use in bright environments.",
+            "Faint backlight unevenness detected, but within Delta E color accuracy tolerance range."
         ],
-        // 漏光分析 (严重)
+        // Bleeding analysis (severe)
         bleedingHigh: [
-            "背光模组存在明显的漏光（Backlight Bleeding）现象，光通量在边框处显著溢出。",
-            "屏幕黑色均匀性较差，存在可见的云斑（Clouding）。这可能会影响观看暗色调电影或游戏的沉浸感。",
-            "面板封装工艺可能存在公差问题，导致边框压迫液晶层产生了严重的漏光效应。"
+            "Significant backlight bleeding phenomenon in the backlight module. Light flux significantly leaks at the bezel.",
+            "Poor black uniformity with visible clouding. This may affect immersion when watching dark movies or playing games.",
+            "Panel encapsulation process may have tolerance issues, causing severe backlight bleeding due to bezel pressure on the liquid crystal layer."
         ],
-        // 总结建议 (完美)
+        // Summary advice (perfect)
         advicePerfect: [
-            "恭喜！这是一块素质极佳的“完美屏”。建议保留并享受它。",
-            "综合评分极高，无需进行任何售后处理。建议将亮度调节至 60-80% 以延长背光寿命。",
-            "该屏幕通过了所有关键指标测试，体质优秀，属于“黄金样本”。"
+            "Congratulations! This is an excellent \"perfect screen\". We recommend keeping it and enjoying it.",
+            "Overall score is extremely high. No post-purchase processing needed. Recommend adjusting brightness to 60-80% to extend backlight life.",
+            "This screen passed all key indicator tests with excellent quality, a \"golden sample\"."
         ],
-        // 总结建议 (一般)
+        // Summary advice (normal)
         adviceNormal: [
-            "总体表现符合主流出厂标准。轻微的瑕疵在正常视距下几乎不可察觉，建议正常使用。",
-            "虽然存在细微瑕疵，但在该价位段属于“合格品”。除非您是极致完美主义者，否则无需折腾换货。",
-            "建议在日常使用中避免长时间显示静态图像，以防止并没有发生的残影问题。"
+            "Overall performance meets mainstream factory standards. Slight imperfections are barely noticeable at normal viewing distance. Recommend normal use.",
+            "Although there are minor flaws, it's a \"qualified product\" at this price range. Unless you're an extreme perfectionist, no need for exchanges.",
+            "Recommend avoiding long-term static images in daily use to prevent image retention that isn't actually happening."
         ],
-        // 总结建议 (差)
+        // Summary advice (bad)
         adviceBad: [
-            "鉴于缺陷较为明显，严重影响了视觉体验，建议您联系经销商申请售后或退换货。",
-            "该面板的品控表现低于行业平均水平，建议保存本报告截图作为退换货依据。",
-            "为了您的长期使用体验，建议尝试申请更换一台面板素质更好的设备。"
+            "Given the noticeable defects severely impacting visual experience, we recommend contacting the seller for after-sales service or return/exchange.",
+            "This panel's quality control performance is below industry average. Recommend saving a screenshot of this report as evidence for return/exchange.",
+            "For your long-term usage experience, we recommend trying to exchange for a device with better panel quality."
         ]
     };
 
-    // 2. 辅助函数：随机抽取
+    // 2. Helper function: random selection
     const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
     
-    // 3. 逻辑判断与组装
+    // 3. Logic judgment and assembly
     let reportContent = [];
     let score = 100;
     let defectCount = 0;
 
-    // 添加报告头
+    // Add report header
     const reportId = "RPT-" + Math.floor(Math.random() * 1000000);
     const dateStr = new Date().toLocaleDateString();
     
-    // --- 逻辑处理 ---
+    // --- Logic processing ---
     
-    // 开场
-    reportContent.push(`**检测编号：** ${reportId}`);
-    reportContent.push(`**检测日期：** ${dateStr}`);
+    // Opening
+    reportContent.push(`**Report ID:** ${reportId}`);
+    reportContent.push(`**Date:** ${dateStr}`);
     reportContent.push(`---`);
-    reportContent.push(`**前言：** ${pick(corpus.intro)}`);
+    reportContent.push(`**Introduction:** ${pick(corpus.intro)}`);
 
-    // 坏点判断
+    // Dead pixel judgment
     if (inputData.hasDeadPixel) {
         score -= 20;
         defectCount++;
-        reportContent.push(`\n**❌ 像素缺陷分析：**`);
+        reportContent.push(`\n**❌ Pixel Defect Analysis:**`);
         reportContent.push(pick(corpus.deadPixelBad));
     } else {
-        reportContent.push(`\n**✅ 像素缺陷分析：**`);
+        reportContent.push(`\n**✅ Pixel Defect Analysis:**`);
         reportContent.push(pick(corpus.deadPixelGood));
     }
 
-    // 漏光判断
-    reportContent.push(`\n**💡 背光均匀性分析：**`);
+    // Bleeding judgment
+    reportContent.push(`\n**💡 Backlight Uniformity Analysis:**`);
     if (inputData.bleedingSeverity === 'high') {
         score -= 30;
         defectCount++;
@@ -97,11 +97,11 @@ function generatePseudoAIReport(inputData) {
         score -= 5;
         reportContent.push(pick(corpus.bleedingLow));
     } else {
-        reportContent.push("背光控制良好，无明显漏光或辉光现象，黑色纯净度高。");
+        reportContent.push("Backlight control is excellent, no obvious bleeding or glow. Black purity is high.");
     }
 
-    // 生成结论
-    reportContent.push(`\n**📝 综合评估与建议：**`);
+    // Generate conclusion
+    reportContent.push(`\n**📝 Comprehensive Assessment & Recommendations:**`);
     if (score >= 95) {
         reportContent.push(pick(corpus.advicePerfect));
     } else if (score >= 70) {
@@ -110,7 +110,7 @@ function generatePseudoAIReport(inputData) {
         reportContent.push(pick(corpus.adviceBad));
     }
 
-    // 4. 返回对象
+    // 4. Return object
     return {
         score: score,
         markdown: reportContent.join("\n"),
