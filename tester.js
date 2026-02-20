@@ -104,9 +104,58 @@ function stopTesting() {
         autoPrompt.remove();
         autoPrompt = null;
     }
-    exitFullscreen();
-    testPage.classList.add('hidden');
-    guidePage.classList.remove('hidden');
+    onTestFinished();
+}
+
+function onTestFinished() {
+    if (document.exitFullscreen) document.exitFullscreen();
+    document.getElementById('surveyModal').style.display = 'flex';
+}
+
+function startGeneratingReport() {
+    const hasDeadPixel = document.getElementById('chk-deadpixel').checked;
+    const bleedingSeverity = document.getElementById('sel-bleeding').value;
+
+    document.getElementById('surveyModal').style.display = 'none';
+    const reportModal = document.getElementById('reportModal');
+    reportModal.style.display = 'block';
+    
+    const contentDiv = document.getElementById('reportContent');
+    const scoreDiv = document.getElementById('reportScore');
+    
+    contentDiv.innerHTML = "📡 连接至云端分析引擎...<br>";
+    
+    setTimeout(() => {
+        contentDiv.innerHTML += "📊 正在对比 ISO-13406-2 标准数据库...<br>";
+    }, 800);
+
+    setTimeout(() => {
+        contentDiv.innerHTML += "🧮 计算面板均匀性得分...<br>";
+    }, 1600);
+
+    setTimeout(() => {
+        const result = generatePseudoAIReport({
+            hasDeadPixel: hasDeadPixel,
+            bleedingSeverity: bleedingSeverity
+        });
+
+        let scoreColor = result.score >= 90 ? '#4CAF50' : (result.score >= 70 ? '#FF9800' : '#F44336');
+        scoreDiv.innerHTML = `<span style="color:${scoreColor}">${result.score}</span><span style="font-size:20px; color:#999;"> / 100</span>`;
+        
+        let htmlContent = result.markdown
+            .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+            .replace(/\n/g, '<br>');
+            
+        contentDiv.innerHTML = htmlContent;
+
+        contentDiv.innerHTML += `
+            <div style="margin-top:30px; padding:15px; background:#f9f9f9; border-left:4px solid #FFDD00; font-size:14px;">
+                <b>💡 专家提示：</b>
+                ${result.score < 80 ? '这块屏幕的素质一般，如果您考虑退货，可以看看 <a href=\"#\" target=\"_blank\">2024年高分显示器推荐榜</a>。' : '想要保持屏幕清洁？推荐使用 <a href=\"#\" target=\"_blank\">专业纳米屏幕擦拭布</a>。'}
+            </div>
+        `;
+
+    }, 2500);
 }
 
 function nextTest() {
