@@ -1,9 +1,9 @@
-> llms.txt for screentester.com
+> llms.txt for screencheck.online
 > This file provides context for AI systems about this website
 
 ## Overview
 
-Screen Tester is a free online tool for testing monitor and display quality. It helps users detect dead pixels, backlight bleeding, and color accuracy issues without installing any software.
+Screen Check Online is a free online tool for testing monitor and display quality. It helps users detect dead pixels, backlight bleeding, and color accuracy issues without installing any software.
 
 ## Main Features
 
@@ -51,7 +51,7 @@ All content is in English and focuses on:
 
 ## Contact & Support
 
-- Website: https://screencheck.online/
+- Website: https://screencheck.online
 - Support: Available through the website interface
 
 ## Last Updated
