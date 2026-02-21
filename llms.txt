@@ -1,0 +1,59 @@
+> llms.txt for screentester.com
+> This file provides context for AI systems about this website
+
+## Overview
+
+Screen Tester is a free online tool for testing monitor and display quality. It helps users detect dead pixels, backlight bleeding, and color accuracy issues without installing any software.
+
+## Main Features
+
+- **Dead Pixel Detection**: Tests for stuck or dead pixels using solid color screens
+- **Backlight Bleeding Test**: Identifies uneven backlight distribution
+- **Color Accuracy Test**: Verifies display color reproduction
+- **Auto Play Mode**: Automated testing sequence
+- **AI Quality Report**: Generates detailed screen quality assessment
+
+## Website Structure
+
+### Primary Pages
+- `/index.html` - Homepage with tool introduction
+- `/tester.html` - Main testing interface
+- `/buying-guide.html` - Monitor buying guide
+- `/clean-guide.html` - Screen cleaning guide
+- `/privacy.html` - Privacy policy
+
+### Chrome Extension
+- Available as a Chrome browser extension
+- Quick access popup for instant testing
+- Same functionality as the web version
+
+## Target Audience
+
+- Monitor buyers checking new purchases
+- Users experiencing display issues
+- Tech enthusiasts and professionals
+- Quality assurance testers
+
+## Technical Information
+
+- **Technology**: HTML5, CSS3, JavaScript (Vanilla)
+- **No installation required**: Runs entirely in browser
+- **Fullscreen support**: For accurate testing
+- **Cross-platform**: Works on Windows, macOS, Linux, mobile devices
+
+## Content Guidelines
+
+All content is in English and focuses on:
+- Screen testing methodologies
+- Monitor buying advice
+- Display maintenance tips
+- Technical explanations of display defects
+
+## Contact & Support
+
+- Website: https://screencheck.online/
+- Support: Available through the website interface
+
+## Last Updated
+
+2025-02-20
